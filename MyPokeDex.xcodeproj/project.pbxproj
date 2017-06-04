@@ -15,6 +15,10 @@
 		520FC0311EE40CFD00BFA961 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 520FC02F1EE40CFD00BFA961 /* LaunchScreen.storyboard */; };
 		520FC03C1EE40CFD00BFA961 /* MyPokeDexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520FC03B1EE40CFD00BFA961 /* MyPokeDexTests.swift */; };
 		520FC0471EE40CFD00BFA961 /* MyPokeDexUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520FC0461EE40CFD00BFA961 /* MyPokeDexUITests.swift */; };
+		520FC0551EE413E200BFA961 /* csv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520FC0541EE413E200BFA961 /* csv.swift */; };
+		520FC0571EE4140400BFA961 /* pokemon.csv in Resources */ = {isa = PBXBuildFile; fileRef = 520FC0561EE4140400BFA961 /* pokemon.csv */; };
+		520FC05C1EE4148700BFA961 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520FC05B1EE4148700BFA961 /* Pokemon.swift */; };
+		520FC05E1EE418DE00BFA961 /* PokeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520FC05D1EE418DE00BFA961 /* PokeCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		520FC0421EE40CFD00BFA961 /* MyPokeDexUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyPokeDexUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		520FC0461EE40CFD00BFA961 /* MyPokeDexUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPokeDexUITests.swift; sourceTree = "<group>"; };
 		520FC0481EE40CFD00BFA961 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		520FC0541EE413E200BFA961 /* csv.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = csv.swift; sourceTree = "<group>"; };
+		520FC0561EE4140400BFA961 /* pokemon.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pokemon.csv; sourceTree = "<group>"; };
+		520FC05B1EE4148700BFA961 /* Pokemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
+		520FC05D1EE418DE00BFA961 /* PokeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokeCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +107,18 @@
 		520FC0221EE40CFD00BFA961 /* MyPokeDex */ = {
 			isa = PBXGroup;
 			children = (
+				520FC05A1EE4147400BFA961 /* view */,
+				520FC0561EE4140400BFA961 /* pokemon.csv */,
+				520FC0541EE413E200BFA961 /* csv.swift */,
 				520FC0231EE40CFD00BFA961 /* AppDelegate.swift */,
+				520FC05D1EE418DE00BFA961 /* PokeCell.swift */,
 				520FC0251EE40CFD00BFA961 /* ViewController.swift */,
 				520FC0271EE40CFD00BFA961 /* Main.storyboard */,
 				520FC02D1EE40CFD00BFA961 /* Assets.xcassets */,
 				520FC02F1EE40CFD00BFA961 /* LaunchScreen.storyboard */,
 				520FC0321EE40CFD00BFA961 /* Info.plist */,
 				520FC02A1EE40CFD00BFA961 /* MyPokeDex.xcdatamodeld */,
+				520FC05B1EE4148700BFA961 /* Pokemon.swift */,
 			);
 			path = MyPokeDex;
 			sourceTree = "<group>";
@@ -126,6 +139,13 @@
 				520FC0481EE40CFD00BFA961 /* Info.plist */,
 			);
 			path = MyPokeDexUITests;
+			sourceTree = "<group>";
+		};
+		520FC05A1EE4147400BFA961 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +260,7 @@
 			files = (
 				520FC0311EE40CFD00BFA961 /* LaunchScreen.storyboard in Resources */,
 				520FC02E1EE40CFD00BFA961 /* Assets.xcassets in Resources */,
+				520FC0571EE4140400BFA961 /* pokemon.csv in Resources */,
 				520FC0291EE40CFD00BFA961 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +286,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				520FC05E1EE418DE00BFA961 /* PokeCell.swift in Sources */,
+				520FC05C1EE4148700BFA961 /* Pokemon.swift in Sources */,
+				520FC0551EE413E200BFA961 /* csv.swift in Sources */,
 				520FC02C1EE40CFD00BFA961 /* MyPokeDex.xcdatamodeld in Sources */,
 				520FC0261EE40CFD00BFA961 /* ViewController.swift in Sources */,
 				520FC0241EE40CFD00BFA961 /* AppDelegate.swift in Sources */,
