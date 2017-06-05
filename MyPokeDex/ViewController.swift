@@ -7,11 +7,22 @@
 //
 
 import UIKit
+import AVFoundation
 
-class ViewController: UIViewController , UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController , UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UISearchBarDelegate {
     
     
     @IBOutlet weak var collectionview: UICollectionView!
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    
+    
+    var pokemon = [Pokemon]()
+    var filtered = [Pokemon]()
+    var insearchmode = false
+    
+    var musicPlayr : AVAudioPlayer!
     
 
     override func viewDidLoad() {
@@ -19,14 +30,61 @@ class ViewController: UIViewController , UICollectionViewDelegate,UICollectionVi
        
         collectionview.delegate = self
         collectionview.dataSource = self
-        
-
+        searchBar.delegate = self
+        parsePokemonCSV()
+        initAudio()
     }
+    
+    func initAudio() {
+        let path = Bundle.main.path(forResource: "music", ofType: "mp3")!
+        do {
+            musicPlayr = try AVAudioPlayer(contentsOf: NSURL(string: path)! as URL)
+            musicPlayr.prepareToPlay()
+            musicPlayr.numberOfLoops = -1
+            musicPlayr.play()
+            
+        } catch let err as NSError {
+            print(err.debugDescription)
+        }
+        
+    }
+    
+    
+    
+    func parsePokemonCSV() {
+        
+        let path = Bundle.main.path(forResource: "pokemon", ofType: "csv")!
+        
+        do {
+            let csv = try CSV(contentsOfURL: path)
+            
+            let rows = csv.rows
+            for row in rows {
+                let pokeID = Int(row["id"]!)!
+                let name = row["identifier"]!
+                let poke = Pokemon(name: name, pokedexId: pokeID)
+                pokemon.append(poke)
+            }
+            
+        } catch let err as NSError {
+            print(err.debugDescription)
+        }
+        
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokeCell", for: indexPath) as? PokeCell{
             
-            let pokemon = Pokemon(name: "test", pokedexId: indexPath.row)
-            cell.configurecell(pokemon: pokemon)
+            var poke : Pokemon!
+            if insearchmode {
+                poke = filtered[indexPath.row]
+            }else {
+                poke = pokemon[indexPath.row]
+            }
+            
+            
+            cell.configurecell(pokemon: poke)
             
         return cell
         }else {
@@ -39,7 +97,11 @@ class ViewController: UIViewController , UICollectionViewDelegate,UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-         return 718
+        if !insearchmode {
+            return pokemon.count
+        }
+        return filtered.count
+        
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -47,7 +109,34 @@ class ViewController: UIViewController , UICollectionViewDelegate,UICollectionVi
     override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
         return CGSize(width: 150, height: 150)
     }
-
+    
+    @IBAction func musicbutton(_ sender: UIButton) {
+        
+        if musicPlayr.isPlaying {
+            musicPlayr.stop()
+            sender.alpha = 0.2
+        }else {
+            musicPlayr.play()
+            sender.alpha = 1.0
+        }
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchBar.text == nil || searchBar.text == "" {
+            insearchmode = false
+        }else {
+            insearchmode = true
+            let lower = searchBar.text!.lowercased()
+            filtered = pokemon.filter({$0.name.range(of: lower) != nil})
+            
+            collectionview.reloadData()
+            
+            
+        }
+        
+    }
 
 }
 
